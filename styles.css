@@ -1,0 +1,12 @@
+.board-container{
+    display: inline-grid;
+    grid-template-columns: auto auto auto;
+    background-color: rgb(134, 156, 177);
+    padding: 10px;
+}
+
+.board-item{
+    background-color: rgb(137, 211, 230);
+    border: 1px solid rgba(0, 0, 0, 0.8);
+    padding: 20px
+}
