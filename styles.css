@@ -2,7 +2,7 @@
     display: inline-grid;
     grid-template-columns: auto auto auto;
     background-color: rgb(134, 156, 177);
-    padding: 10px;
+    padding: 5px;
 }
 
 .board-item{
