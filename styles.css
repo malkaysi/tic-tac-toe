@@ -17,3 +17,9 @@
     border: 1px solid rgba(0, 0, 0, 0.8);
     padding: 20px
 }
+
+.selection-item{
+    background-color: rgb(137, 211, 230);
+    border: 1px solid rgba(0, 0, 0, 0.8);
+    padding: 20px
+}
