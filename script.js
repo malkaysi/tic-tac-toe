@@ -1,9 +1,3 @@
-// Making a tic tac toe game
-// We're first going to make a gameboard
-
-// gameboard will be stored as an array inside of a gameboard object
-// Think we need to create 9 boxes within an array of the gameBoard
-
 const gameBoard = (() => {
     const boardArray = [];
 
@@ -21,8 +15,4 @@ const gameBoard = (() => {
     }
     console.log(boardArray);
 
-    // They sould be added to the boardArray
 })();
-
-// Players are also going to be stored in an object
-// And an object to control the flow of the game
