@@ -13,6 +13,12 @@ const gameBoard = (() => {
         container.appendChild(boardArray['div' + i]);
 
     }
-    console.log(boardArray);
 
+})();
+
+// A player can select X or O
+// Once a player clicks on an a grid item, the content of the grid is replaced with the selected letter
+
+const gameSelection = (() => {
+    
 })();
