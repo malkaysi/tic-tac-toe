@@ -15,11 +15,15 @@
 .board-item{
     background-color: rgb(137, 211, 230);
     border: 1px solid rgba(0, 0, 0, 0.8);
-    padding: 20px
+    padding: 20px;
+    font-size: 30px;
+    height: 30px;
+    width: 30px;
 }
 
 .selection-item{
     background-color: rgb(137, 211, 230);
     border: 1px solid rgba(0, 0, 0, 0.8);
-    padding: 20px
+    padding: 20px;
+    font-size: 30px;
 }

@@ -19,9 +19,6 @@ const gameBoard = (() => {
 
 })();
 
-// A player can select X or O
-// Once a player clicks on an a grid item, the content of the grid is replaced with the selected letter
-
 const gameSelection = (() => {
 
     const selectionArray = [];
@@ -40,4 +37,28 @@ const gameSelection = (() => {
     document.querySelector('#selection-item0').textContent = 'O';
     document.querySelector('#selection-item1').textContent = 'X';
 
+    return{
+        selectionArray
+    }
+
 })();
+
+const game = gameBoard.boardArray;
+// const selection = gameSelection.selectionArray;
+
+const Game = (game) => {
+    
+    const playerSelection = pSelection =>{
+        pSelection = document.querySelector('selection-item');
+        pSelection.addEventListener('click', (e) => {
+            let selection = e.target.textContent;
+            console.log(selection);
+        })
+    }
+
+};
+
+// Object to control the flow of the game
+// You must first select from the selection array
+// Then you can click on a tile on the board
+// The text from the 
