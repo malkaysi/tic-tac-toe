@@ -21,7 +21,15 @@ const gameBoard = (() => {
 
 const gameSelection = (() => {
 
-    const selectionArray = [];
+    let pOneSelection = 'X';
+    let pTwoSelection = 'O';
+
+    // So we don't even need a selection array
+    // First player can start with X, second player starts with O
+    // Do we need a round 
+
+
+    /* const selectionArray = [];
     const container = document.querySelector('#selection-container')
 
     for (i = 0; i <= 1; i++) {
@@ -35,7 +43,9 @@ const gameSelection = (() => {
     }
 
     document.querySelector('#selection-item0').textContent = 'O';
-    document.querySelector('#selection-item1').textContent = 'X';
+    document.querySelector('#selection-item1').textContent = 'X'; */
+
+
 
     return{
         selectionArray
@@ -43,20 +53,14 @@ const gameSelection = (() => {
 
 })();
 
-const game = gameBoard.boardArray;
-// const selection = gameSelection.selectionArray;
 
-const Game = (game) => {
-    
-    const playerSelection = pSelection =>{
-        pSelection = document.querySelector('selection-item');
-        pSelection.addEventListener('click', (e) => {
-            let selection = e.target.textContent;
-            console.log(selection);
-        })
-    }
 
+const Player = (name) => {
+    const getName =  () => name;
+
+    return {getName}
 };
+
 
 // Object to control the flow of the game
 // You must first select from the selection array
