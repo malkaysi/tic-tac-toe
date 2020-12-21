@@ -1,11 +1,13 @@
 const gameBoard = (() => {
-    const boardArray = [];
+
+    let boardArray = [];
 
     // Need to create boxes within html element and loop to create 9 of them
     const container = document.querySelector('#board-container')
 
-    for (i = 0; i <= 8; i++) {
-        boardArray['div' + i];
+    for (i = 0; i <= 8; i++) { // Creates the grid items and board array that includes each item
+
+        boardArray.push('div' + i);
 
         boardArray['div' + i] = document.createElement('div');
         boardArray['div' + i].setAttribute('id', 'board-item' + i);
@@ -13,6 +15,7 @@ const gameBoard = (() => {
         container.appendChild(boardArray['div' + i]);
 
     }
+
     return {
         boardArray
     };
@@ -21,48 +24,39 @@ const gameBoard = (() => {
 
 const gameSelection = (() => {
 
-    let pOneSelection = 'X';
-    let pTwoSelection = 'O';
+    let playerSelection = 'X';
+    let round = 0;
+    // let pTwoSelection = 'O';
+/*     while((round % 2 == 0 || round == 0) && round < 10){
+        playerSelection = 'O';
+        round++;
+        console.log(round);
+    } */
 
-    // So we don't even need a selection array
-    // First player can start with X, second player starts with O
-    // Do we need a round 
+    const boardItems = document.querySelectorAll('.board-item');
 
+    boardItems.forEach((item) => { 
+        item.addEventListener('click', (e) => {
+            console.log(item.id);
+            e.target.textContent = playerSelection; // This adds text content to the clicked on item
+        })
+    })
 
-    /* const selectionArray = [];
-    const container = document.querySelector('#selection-container')
-
-    for (i = 0; i <= 1; i++) {
-        selectionArray['div' + i];
-
-        selectionArray['div' + i] = document.createElement('div');
-        selectionArray['div' + i].setAttribute('id', 'selection-item' + i);
-        selectionArray['div' + i].classList.add('selection-item')
-        container.appendChild(selectionArray['div' + i]);
-
-    }
-
-    document.querySelector('#selection-item0').textContent = 'O';
-    document.querySelector('#selection-item1').textContent = 'X'; */
+    // We have the necessary functions - now we need to alternate between X and O depending on the round
 
 
 
-    return{
-        selectionArray
+    return {
+
     }
 
 })();
 
 
 
+
 const Player = (name) => {
-    const getName =  () => name;
+    const getName = () => name;
 
-    return {getName}
+    return { getName }
 };
-
-
-// Object to control the flow of the game
-// You must first select from the selection array
-// Then you can click on a tile on the board
-// The text from the 
