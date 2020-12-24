@@ -22,36 +22,66 @@ const gameBoard = (() => {
 
 })();
 
-const gameSelection = (() => {
+
+/* const gameSelection = (() => {
 
     let playerSelection = 'X';
     let round = 0;
     // let pTwoSelection = 'O';
-/*     while((round % 2 == 0 || round == 0) && round < 10){
-        playerSelection = 'O';
-        round++;
-        console.log(round);
-    } */
+    /*     while((round % 2 == 0 || round == 0) && round < 10){
+            playerSelection = 'O';
+            round++;
+            console.log(round);
+        } */
 
-    const boardItems = document.querySelectorAll('.board-item');
+/*  const boardItems = document.querySelectorAll('.board-item');
 
-    boardItems.forEach((item) => { 
-        item.addEventListener('click', (e) => {
-            console.log(item.id);
-            e.target.textContent = playerSelection; // This adds text content to the clicked on item
-        })
-    })
+ boardItems.forEach((item) => {
+     item.addEventListener('click', (e) => {
+         console.log(item.id);
+         e.target.textContent = playerSelection; // This adds text content to the clicked on item
+     })
+ }) */
 
-    // We have the necessary functions - now we need to alternate between X and O depending on the round
+// We have the necessary functions - now we need to alternate between X and O depending on the round
+// })(); */
 
 
+// textContent should change based on the round
+// Round is to 0-8
+// Even rounds are X, Odd ar O
 
-    return {
 
+const gameController = (() => {
+
+    const init = () => {
+        cacheDom();
+        bindEvents();
     }
+
+    function cacheDom() {
+        this.boardItems = document.querySelectorAll('.board-item');
+        this.playerSelection = 'X';
+    };
+
+    function bindEvents() {
+
+        this.boardItems.forEach((item) => {
+            item.addEventListener('click', (e) => {
+                // console.log(item.id);
+                e.target.textContent = this.playerSelection; // This adds text content to the clicked on item
+            })
+        })
+
+    };
+
+    return {init};
+
+    
 
 })();
 
+gameController.init();
 
 
 
