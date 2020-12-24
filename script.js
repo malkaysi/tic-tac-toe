@@ -23,67 +23,59 @@ const gameBoard = (() => {
 })();
 
 
-/* const gameSelection = (() => {
-
-    let playerSelection = 'X';
-    let round = 0;
-    // let pTwoSelection = 'O';
-    /*     while((round % 2 == 0 || round == 0) && round < 10){
-            playerSelection = 'O';
-            round++;
-            console.log(round);
-        } */
-
-/*  const boardItems = document.querySelectorAll('.board-item');
-
- boardItems.forEach((item) => {
-     item.addEventListener('click', (e) => {
-         console.log(item.id);
-         e.target.textContent = playerSelection; // This adds text content to the clicked on item
-     })
- }) */
-
-// We have the necessary functions - now we need to alternate between X and O depending on the round
-// })(); */
-
-
-// textContent should change based on the round
-// Round is to 0-8
-// Even rounds are X, Odd ar O
-
-
 const gameController = (() => {
 
+    this.count = 0;
+    
     const init = () => {
         cacheDom();
         bindEvents();
+        selectChoice();
+        
     }
 
-    function cacheDom() {
+    const cacheDom = () => { // Grabs the board-item class (grid items)
         this.boardItems = document.querySelectorAll('.board-item');
-        this.playerSelection = 'X';
+        // this.playerSelection = 'X';
     };
 
-    function bindEvents() {
+    const bindEvents = () => { // Creates the listener to add the player selection
 
         this.boardItems.forEach((item) => {
             item.addEventListener('click', (e) => {
-                // console.log(item.id);
                 e.target.textContent = this.playerSelection; // This adds text content to the clicked on item
+                console.log(this.count)
+                console.log(this.playerSelection);
+                this.count++;
             })
         })
 
     };
 
-    return {init};
+    const selectChoice = () => { // Alternates between X and Y depending on the count/round
 
-    
+        console.log('from selectChoice method ' + this.count);
+        if (this.count %2 == 0 || this.count  == 0) {
+            this.playerSelection = 'X'
+        } else {
+            this.playerSelection = 'Y'
+        };
+
+    }
+
+  /*   const counterCreator = () => { // Increments the count/round
+        this.count = 0;
+        this.count++;
+
+    } */
+
+    return { init };
+
+
 
 })();
 
 gameController.init();
-
-
 
 const Player = (name) => {
     const getName = () => name;
