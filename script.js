@@ -30,11 +30,11 @@ const gameController = (() => {
     const init = () => {
         cacheDom();
         bindEvents();
-        determineWinner();
     }
 
     const cacheDom = () => { // Grabs the board-item class (grid items)
         this.boardItems = document.querySelectorAll('.board-item');
+        // this.div0 = this.boardItems[0].innerText;
     };
 
     const bindEvents = () => { // Creates the listener to add the player selection
@@ -47,10 +47,11 @@ const gameController = (() => {
                     alert('Game Over');
                 } else {
                     e.target.textContent = this.playerSelection; // This adds text content to the clicked on item
+                    determineWinner()
                 }
 
+                
                 this.count++;
-                console.log(this.winningCombinations);
             })
         })
 
@@ -68,8 +69,21 @@ const gameController = (() => {
 
     const determineWinner = () => {
 
-        this.winningCombinations = [(this.boardItems[0].textContent + this.boardItems[1].textContent)];
-        
+        this.result = [];
+        for (i = 0; i <= 8; i++) {
+
+            this.result.push(this.boardItems[i].innerText)
+    
+        }
+
+        this.rowOne = this.result[0] + this.result[1] + this.result[2];
+        console.log(rowOne);
+
+        if(this.rowOne == 'XXX' || this.rowOne == 'YYY') {
+            alert('We have a winner');
+            // Run a reset method
+        }
+
     }
 
     
