@@ -22,38 +22,63 @@ const gameBoard = (() => {
 
 })();
 
-const gameSelection = (() => {
 
-    let playerSelection = 'X';
-    let round = 0;
-    // let pTwoSelection = 'O';
-/*     while((round % 2 == 0 || round == 0) && round < 10){
-        playerSelection = 'O';
-        round++;
-        console.log(round);
-    } */
+const gameController = (() => {
 
-    const boardItems = document.querySelectorAll('.board-item');
+    this.count = 0;
 
-    boardItems.forEach((item) => { 
-        item.addEventListener('click', (e) => {
-            console.log(item.id);
-            e.target.textContent = playerSelection; // This adds text content to the clicked on item
+    const init = () => {
+        cacheDom();
+        bindEvents();
+        determineWinner();
+    }
+
+    const cacheDom = () => { // Grabs the board-item class (grid items)
+        this.boardItems = document.querySelectorAll('.board-item');
+    };
+
+    const bindEvents = () => { // Creates the listener to add the player selection
+
+        this.boardItems.forEach((item) => {
+            item.addEventListener('click', (e) => {
+                selectChoice();
+
+                if (this.count >= 9) {
+                    alert('Game Over');
+                } else {
+                    e.target.textContent = this.playerSelection; // This adds text content to the clicked on item
+                }
+
+                this.count++;
+                console.log(this.winningCombinations);
+            })
         })
-    })
 
-    // We have the necessary functions - now we need to alternate between X and O depending on the round
+    };
 
+    const selectChoice = () => { // Alternates between X and Y depending on the count/round
 
-
-    return {
+        if (this.count % 2 == 0 || this.count == 0) {
+            this.playerSelection = 'X'
+        } else {
+            this.playerSelection = 'Y'
+        };
 
     }
 
+    const determineWinner = () => {
+
+        this.winningCombinations = [(this.boardItems[0].textContent + this.boardItems[1].textContent)];
+        
+    }
+
+    
+
+    return { init };
+
 })();
 
-
-
+gameController.init();
 
 const Player = (name) => {
     const getName = () => name;
