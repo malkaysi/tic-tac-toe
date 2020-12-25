@@ -26,27 +26,31 @@ const gameBoard = (() => {
 const gameController = (() => {
 
     this.count = 0;
-    
+
     const init = () => {
         cacheDom();
         bindEvents();
-        selectChoice();
-        
+        determineWinner();
     }
 
     const cacheDom = () => { // Grabs the board-item class (grid items)
         this.boardItems = document.querySelectorAll('.board-item');
-        // this.playerSelection = 'X';
     };
 
     const bindEvents = () => { // Creates the listener to add the player selection
 
         this.boardItems.forEach((item) => {
             item.addEventListener('click', (e) => {
-                e.target.textContent = this.playerSelection; // This adds text content to the clicked on item
-                console.log(this.count)
-                console.log(this.playerSelection);
+                selectChoice();
+
+                if (this.count >= 9) {
+                    alert('Game Over');
+                } else {
+                    e.target.textContent = this.playerSelection; // This adds text content to the clicked on item
+                }
+
                 this.count++;
+                console.log(this.winningCombinations);
             })
         })
 
@@ -54,8 +58,7 @@ const gameController = (() => {
 
     const selectChoice = () => { // Alternates between X and Y depending on the count/round
 
-        console.log('from selectChoice method ' + this.count);
-        if (this.count %2 == 0 || this.count  == 0) {
+        if (this.count % 2 == 0 || this.count == 0) {
             this.playerSelection = 'X'
         } else {
             this.playerSelection = 'Y'
@@ -63,15 +66,15 @@ const gameController = (() => {
 
     }
 
-  /*   const counterCreator = () => { // Increments the count/round
-        this.count = 0;
-        this.count++;
+    const determineWinner = () => {
 
-    } */
+        this.winningCombinations = [(this.boardItems[0].textContent + this.boardItems[1].textContent)];
+        
+    }
+
+    
 
     return { init };
-
-
 
 })();
 
