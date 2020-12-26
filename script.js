@@ -30,11 +30,12 @@ const gameController = (() => {
     const init = () => {
         cacheDom();
         bindEvents();
-        determineWinner();
+        determineTie();
     }
 
     const cacheDom = () => { // Grabs the board-item class (grid items)
         this.boardItems = document.querySelectorAll('.board-item');
+        // this.div0 = this.boardItems[0].innerText;
     };
 
     const bindEvents = () => { // Creates the listener to add the player selection
@@ -42,15 +43,20 @@ const gameController = (() => {
         this.boardItems.forEach((item) => {
             item.addEventListener('click', (e) => {
                 selectChoice();
+                
 
-                if (this.count >= 9) {
-                    alert('Game Over');
+                
+                if(e.target.textContent) {
+                    alert('Something is already here')
+                    this.count++;
                 } else {
                     e.target.textContent = this.playerSelection; // This adds text content to the clicked on item
+                    determineWinner();
+                    determineTie();
                 }
 
+
                 this.count++;
-                console.log(this.winningCombinations);
             })
         })
 
@@ -66,13 +72,58 @@ const gameController = (() => {
 
     }
 
-    const determineWinner = () => {
+    const determineWinner = () => { // Checks the grid items to determine if there is a winner
 
-        this.winningCombinations = [(this.boardItems[0].textContent + this.boardItems[1].textContent)];
-        
+        this.result = [];
+        for (i = 0; i <= 8; i++) {
+
+            this.result.push(this.boardItems[i].innerText)
+
+        }
+
+        this.rowOne = this.result[0] + this.result[1] + this.result[2];
+        this.rowTwo = this.result[3] + this.result[4] + this.result[5];
+        this.rowThree = this.result[6] + this.result[7] + this.result[8];
+
+        this.colOne = this.result[0] + this.result[3] + this.result[6];
+        this.colTwo = this.result[1] + this.result[4] + this.result[7];
+        this.colThree = this.result[2] + this.result[5] + this.result[8];
+
+        this.diaOne = this.result[0] + this.result[4] + this.result[8];
+        this.diaTwo = this.result[2] + this.result[4] + this.result[6];
+
+
+
+        if (this.rowOne == 'XXX' || this.rowOne == 'YYY' ||
+            this.rowTwo == 'XXX' || this.rowTwo == 'YYY' ||
+            this.rowThree == 'XXX' || this.rowThree == 'YYY' ||
+            this.colOne == 'XXX' || this.colOne == 'YYY' ||
+            this.colTwo == 'XXX' || this.colTwo == 'YYY' ||
+            this.colThree == 'XXX' || this.colThree == 'YYY' ||
+            this.diaOne == 'XXX' || this.diaOne == 'YYY' ||
+            this.diaTwo == 'XXX' || this.diaTwo == 'YYY') {
+
+            setTimeout(function () {
+                alert('We have a winner');
+            }, 0)
+
+            // Run a reset method
+        }
+
     }
 
-    
+    const determineTie = () => {
+
+        if (this.boardItems[0].textContent) {
+            setTimeout(function () {
+                alert('Tie Game');
+            }, 0);
+
+            // Reset method
+        }
+    }
+
+
 
     return { init };
 
