@@ -67,7 +67,7 @@ const gameController = (() => {
 
     }
 
-    const determineWinner = () => {
+    const determineWinner = () => { // Checks the grid items to determine if there is a winner
 
         this.result = [];
         for (i = 0; i <= 8; i++) {
@@ -97,7 +97,11 @@ const gameController = (() => {
             this.colThree == 'XXX' || this.colThree == 'YYY' ||
             this.diaOne == 'XXX' || this.diaOne == 'YYY' ||
             this.diaTwo == 'XXX' || this.diaTwo == 'YYY') {
-            alert('We have a winner');
+
+            setTimeout(function () {
+                alert('We have a winner');
+            }, 0)
+
             // Run a reset method
         }
 
