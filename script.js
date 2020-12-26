@@ -1,39 +1,45 @@
-const gameBoard = (() => {
+const gameBoard = (() => { // Creates game grid
 
     let boardArray = [];
 
     // Need to create boxes within html element and loop to create 9 of them
     const container = document.querySelector('#board-container')
 
-    for (i = 0; i <= 8; i++) { // Creates the grid items and board array that includes each item
+    const createBoard = () => {
 
-        boardArray.push('div' + i);
+        for (i = 0; i <= 8; i++) { // Creates the grid items and board array that includes each item
 
-        boardArray['div' + i] = document.createElement('div');
-        boardArray['div' + i].setAttribute('id', 'board-item' + i);
-        boardArray['div' + i].classList.add('board-item')
-        container.appendChild(boardArray['div' + i]);
-
+            boardArray.push('div' + i);
+    
+            boardArray['div' + i] = document.createElement('div');
+            boardArray['div' + i].setAttribute('id', 'board-item' + i);
+            boardArray['div' + i].classList.add('board-item')
+            container.appendChild(boardArray['div' + i]);
+        }
     }
 
     return {
-        boardArray
+        createBoard
     };
 
 })();
 
+gameBoard.createBoard();
 
-const gameController = (() => {
+
+const gameController = (() => { // Logic for game process
 
     this.count = 0;
 
     const init = () => {
         cacheDom();
         bindEvents();
+        resetGame();
     }
 
     const cacheDom = () => { // Grabs the board-item class (grid items)
         this.boardItems = document.querySelectorAll('.board-item');
+        this.btn = document.querySelector('#btn');
         // this.div0 = this.boardItems[0].innerText;
     };
 
@@ -51,7 +57,6 @@ const gameController = (() => {
                 } else {
                     e.target.textContent = this.playerSelection; // This adds text content to the clicked on item
                     determineWinner();
-                    // determineTie();
                 }
 
 
@@ -72,6 +77,8 @@ const gameController = (() => {
     }
 
     const determineWinner = () => { // Checks the grid items to determine if there is a winner
+
+        this.gameStatus = 'In Progress';
 
         this.result = [];
         for (i = 0; i <= 8; i++) {
@@ -106,34 +113,33 @@ const gameController = (() => {
                 alert('We have a winner');
             }, 0)
 
-            // Run a reset method
+            this.gameStatus = 'Winner'
+
         }
 
-        if(this.result.length == 9){
+        if(this.result.indexOf('') == -1 && this.gameStatus != 'Winner'){
+
             setTimeout(function () {
                 alert('Tie Game');
             }, 0);
 
-            // Run a reset method
+            this.gameStatus == 'Tie'
+
         }
 
     }
 
-    /* const determineTie = () => {
-
-        if (this.boardItems[0].textContent && this.boardItems[1].textContent && this.boardItems[2].textContent
-            && this.boardItems[3].textContent && this.boardItems[4].textContent && this.boardItems[5].textContent
-            && this.boardItems[6].textContent && this.boardItems[7].textContent && this.boardItems[8].textContent) {
-
-            setTimeout(function () {
-                alert('Tie Game');
-            }, 0);
-
-            // Reset method
-        }
-    } */
-
-
+    const resetGame = () => {
+        this.btn.addEventListener('click', () => {
+            this.boardItems.forEach((item) => {
+                item.textContent = '';
+                this.count = 0;
+            });
+        });
+        
+    }
+    
+    console.log(this.count);
 
     return { init };
 
