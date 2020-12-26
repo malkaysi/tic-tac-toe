@@ -50,7 +50,7 @@ const gameController = (() => {
                     determineWinner()
                 }
 
-                
+
                 this.count++;
             })
         })
@@ -73,20 +73,37 @@ const gameController = (() => {
         for (i = 0; i <= 8; i++) {
 
             this.result.push(this.boardItems[i].innerText)
-    
+
         }
 
         this.rowOne = this.result[0] + this.result[1] + this.result[2];
-        console.log(rowOne);
+        this.rowTwo = this.result[3] + this.result[4] + this.result[5];
+        this.rowThree = this.result[6] + this.result[7] + this.result[8];
 
-        if(this.rowOne == 'XXX' || this.rowOne == 'YYY') {
+        this.colOne = this.result[0] + this.result[3] + this.result[6];
+        this.colTwo = this.result[1] + this.result[4] + this.result[7];
+        this.colThree = this.result[2] + this.result[5] + this.result[8];
+
+        this.diaOne = this.result[0] + this.result[4] + this.result[8];
+        this.diaTwo = this.result[2] + this.result[4] + this.result[6];
+
+
+
+        if (this.rowOne == 'XXX' || this.rowOne == 'YYY' ||
+            this.rowTwo == 'XXX' || this.rowTwo == 'YYY' ||
+            this.rowThree == 'XXX' || this.rowThree == 'YYY' ||
+            this.colOne == 'XXX' || this.colOne == 'YYY' ||
+            this.colTwo == 'XXX' || this.colTwo == 'YYY' ||
+            this.colThree == 'XXX' || this.colThree == 'YYY' ||
+            this.diaOne == 'XXX' || this.diaOne == 'YYY' ||
+            this.diaTwo == 'XXX' || this.diaTwo == 'YYY') {
             alert('We have a winner');
             // Run a reset method
         }
 
     }
 
-    
+
 
     return { init };
 
