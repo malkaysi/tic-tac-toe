@@ -30,7 +30,6 @@ const gameController = (() => {
     const init = () => {
         cacheDom();
         bindEvents();
-        determineTie();
     }
 
     const cacheDom = () => { // Grabs the board-item class (grid items)
@@ -52,7 +51,7 @@ const gameController = (() => {
                 } else {
                     e.target.textContent = this.playerSelection; // This adds text content to the clicked on item
                     determineWinner();
-                    determineTie();
+                    // determineTie();
                 }
 
 
@@ -110,18 +109,29 @@ const gameController = (() => {
             // Run a reset method
         }
 
+        if(this.result.length == 9){
+            setTimeout(function () {
+                alert('Tie Game');
+            }, 0);
+
+            // Run a reset method
+        }
+
     }
 
-    const determineTie = () => {
+    /* const determineTie = () => {
 
-        if (this.boardItems[0].textContent) {
+        if (this.boardItems[0].textContent && this.boardItems[1].textContent && this.boardItems[2].textContent
+            && this.boardItems[3].textContent && this.boardItems[4].textContent && this.boardItems[5].textContent
+            && this.boardItems[6].textContent && this.boardItems[7].textContent && this.boardItems[8].textContent) {
+
             setTimeout(function () {
                 alert('Tie Game');
             }, 0);
 
             // Reset method
         }
-    }
+    } */
 
 
 
