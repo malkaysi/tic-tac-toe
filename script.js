@@ -40,6 +40,7 @@ const gameController = (() => { // Logic for game process
     const cacheDom = () => { // Grabs the board-item class (grid items)
         this.boardItems = document.querySelectorAll('.board-item');
         this.btn = document.querySelector('#btn');
+        this.gameStatus = 'In Progress'; // Tracks life cycle of the game
         // this.div0 = this.boardItems[0].innerText;
     };
 
@@ -51,10 +52,10 @@ const gameController = (() => { // Logic for game process
                 
 
                 
-                if(e.target.textContent) {
+                if(e.target.textContent && this.gameStatus == 'In Progress') {
                     alert('Something is already here')
                     this.count++;
-                } else {
+                } else if(this.gameStatus == 'In Progress') {
                     e.target.textContent = this.playerSelection; // This adds text content to the clicked on item
                     determineWinner();
                 }
@@ -77,8 +78,6 @@ const gameController = (() => { // Logic for game process
     }
 
     const determineWinner = () => { // Checks the grid items to determine if there is a winner
-
-        this.gameStatus = 'In Progress';
 
         this.result = [];
         for (i = 0; i <= 8; i++) {
@@ -130,6 +129,8 @@ const gameController = (() => { // Logic for game process
     }
 
     const resetGame = () => {
+        this.gameStatus = 'In Progress'
+
         this.btn.addEventListener('click', () => {
             this.boardItems.forEach((item) => {
                 item.textContent = '';
