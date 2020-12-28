@@ -153,3 +153,9 @@ const Player = (name) => {
 
     return { getName }
 };
+
+
+// Has to be vs AI or Player first
+// If against AI then they are automatically X and AI is O
+// If they select PvP then they can input their names and click start game
+// Let's start with PvP first, Players can input their names for X and O, then hit start game to begin
