@@ -43,14 +43,14 @@ const gameController = (() => { // Logic for game process
         this.btn = document.querySelector('#btn');
         this.gameStatus = 'In Progress'; // Tracks life cycle of the game
         this.playerBtn = document.querySelector('#playerbtn');
-        
+        this.container = document.querySelector('#container');
     };
 
     const bindEvents = () => { // Creates the listener to add the player selection
 
         this.boardItems.forEach((item) => {
             item.addEventListener('click', (e) => {
-                selectChoice();
+                
                 
 
                 
@@ -58,6 +58,7 @@ const gameController = (() => { // Logic for game process
                     alert('Something is already here')
                     this.count++;
                 } else if(this.gameStatus == 'In Progress') {
+                    selectChoice();
                     e.target.textContent = this.playerSelection; // This adds text content to the clicked on item
                     determineWinner();
                 }
@@ -71,10 +72,17 @@ const gameController = (() => { // Logic for game process
 
     const selectChoice = () => { // Alternates between X and Y depending on the count/round
 
+        const content = document.createElement('div');
+        content.setAttribute('id', 'playerUpdate');
+
         if (this.count % 2 == 0 || this.count == 0) {
             this.playerSelection = 'X'
+            content.textContent = createPlayers().player1.playerName + "'s" + " turn!";
+            this.container.appendChild(content);
         } else {
             this.playerSelection = 'Y'
+            content.textContent = player2.playerName + "'s" + " turn!";
+            container.appendChild(content);
         };
 
     }
@@ -167,7 +175,7 @@ const gameController = (() => { // Logic for game process
 
         })
 
-        
+        return {player1, player2}
     }
     
     return { init };
@@ -181,12 +189,12 @@ const Player = (name) => {
     const playerName = name;
     // const playerSelection = selection;
 
-    return { playerName}
+    return {playerName}
 };
 
 gameController.init();
 
-
+console.log()
 // Has to be vs AI or Player first
 // If against AI then they are automatically X and AI is O
 // If they select PvP then they can input their names and click start game
