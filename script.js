@@ -35,13 +35,15 @@ const gameController = (() => { // Logic for game process
         cacheDom();
         bindEvents();
         resetGame();
+        createPlayers();
     }
 
     const cacheDom = () => { // Grabs the board-item class (grid items)
         this.boardItems = document.querySelectorAll('.board-item');
         this.btn = document.querySelector('#btn');
         this.gameStatus = 'In Progress'; // Tracks life cycle of the game
-        // this.div0 = this.boardItems[0].innerText;
+        this.playerBtn = document.querySelector('#playerbtn');
+        
     };
 
     const bindEvents = () => { // Creates the listener to add the player selection
@@ -97,24 +99,35 @@ const gameController = (() => { // Logic for game process
         this.diaOne = this.result[0] + this.result[4] + this.result[8];
         this.diaTwo = this.result[2] + this.result[4] + this.result[6];
 
+        this.conditions = [];
 
+        this.conditions.push(this.rowOne == 'XXX');
+        this.conditions.push(this.rowOne == 'YYY');
+        this.conditions.push(this.rowTwo == 'XXX');
+        this.conditions.push(this.rowTwo == 'YYY');
+        this.conditions.push(this.rowThree == 'XXX');
+        this.conditions.push(this.rowThree == 'YYY');
+        this.conditions.push(this.colOne == 'XXX');
+        this.conditions.push(this.colOne == 'YYY');
+        this.conditions.push(this.colTwo == 'XXX');
+        this.conditions.push(this.colTwo == 'YYY');
+        this.conditions.push(this.colThree == 'XXX');
+        this.conditions.push(this.colThree == 'YYY');
+        this.conditions.push(this.diaOne == 'XXX');
+        this.conditions.push(this.diaOne == 'YYY');
+        this.conditions.push(this.diaTwo == 'XXX');
+        this.conditions.push(this.diaTwo == 'YYY');
+            
+            for(i=0; i < this.conditions.length; i++){
+                if(this.conditions[i]){
+                    setTimeout(function () {
+                        alert('We have a winner: ' + this.playerSelection);
+                    }, 0)
+        
+                    this.gameStatus = 'Winner'
+                }
+            }
 
-        if (this.rowOne == 'XXX' || this.rowOne == 'YYY' ||
-            this.rowTwo == 'XXX' || this.rowTwo == 'YYY' ||
-            this.rowThree == 'XXX' || this.rowThree == 'YYY' ||
-            this.colOne == 'XXX' || this.colOne == 'YYY' ||
-            this.colTwo == 'XXX' || this.colTwo == 'YYY' ||
-            this.colThree == 'XXX' || this.colThree == 'YYY' ||
-            this.diaOne == 'XXX' || this.diaOne == 'YYY' ||
-            this.diaTwo == 'XXX' || this.diaTwo == 'YYY') {
-
-            setTimeout(function () {
-                alert('We have a winner');
-            }, 0)
-
-            this.gameStatus = 'Winner'
-
-        }
 
         if(this.result.indexOf('') == -1 && this.gameStatus != 'Winner'){
 
@@ -129,9 +142,10 @@ const gameController = (() => { // Logic for game process
     }
 
     const resetGame = () => {
-        this.gameStatus = 'In Progress'
+        
 
         this.btn.addEventListener('click', () => {
+            this.gameStatus = 'In Progress'
             this.boardItems.forEach((item) => {
                 item.textContent = '';
                 this.count = 0;
@@ -139,20 +153,38 @@ const gameController = (() => { // Logic for game process
         });
         
     }
-    
-    console.log(this.count);
 
+    const createPlayers = () => {
+        const player1 = Player('');
+        const player2 = Player('');
+
+        this.playerBtn.addEventListener('click', () => {
+
+            this.playerOneInput = document.querySelector('#playerOne').value;
+            this.playerTwoInput = document.querySelector('#playerTwo').value;
+            player1.playerName = this.playerOneInput;
+            player2.playerName = this.playerTwoInput;
+
+        })
+
+        
+    }
+    
     return { init };
 
 })();
 
-gameController.init();
+
 
 const Player = (name) => {
-    const getName = () => name;
 
-    return { getName }
+    const playerName = name;
+    // const playerSelection = selection;
+
+    return { playerName}
 };
+
+gameController.init();
 
 
 // Has to be vs AI or Player first
