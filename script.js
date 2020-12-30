@@ -26,29 +26,42 @@ const gameBoard = (() => { // Creates game grid
 
 gameBoard.createBoard();
 
+const Player = (name) => {
+
+    const getName = () => name;
+    // const playerName = name;
+    // const playerSelection = selection;
+
+    return {getName};
+};
+
 
 const gameController = (() => { // Logic for game process
 
     this.count = 0;
+    this.playerOneName = '';
+    this.playerTwoname = '';
 
     const init = () => {
         cacheDom();
         bindEvents();
         resetGame();
+        createPlayers();
     }
 
     const cacheDom = () => { // Grabs the board-item class (grid items)
         this.boardItems = document.querySelectorAll('.board-item');
         this.btn = document.querySelector('#btn');
         this.gameStatus = 'In Progress'; // Tracks life cycle of the game
-        // this.div0 = this.boardItems[0].innerText;
+        this.playerBtn = document.querySelector('#playerbtn');
+        this.container = document.querySelector('#container');
     };
 
     const bindEvents = () => { // Creates the listener to add the player selection
 
         this.boardItems.forEach((item) => {
             item.addEventListener('click', (e) => {
-                selectChoice();
+                
                 
 
                 
@@ -56,6 +69,7 @@ const gameController = (() => { // Logic for game process
                     alert('Something is already here')
                     this.count++;
                 } else if(this.gameStatus == 'In Progress') {
+                    selectChoice();
                     e.target.textContent = this.playerSelection; // This adds text content to the clicked on item
                     determineWinner();
                 }
@@ -67,12 +81,43 @@ const gameController = (() => { // Logic for game process
 
     };
 
+    const createPlayers = () => {
+        
+
+        this.playerBtn.addEventListener('click', () => {
+
+            
+
+            this.playerOneInput = document.querySelector('#playerOne').value;
+            this.playerTwoInput = document.querySelector('#playerTwo').value;
+
+            const player1 = Player(this.playerOneInput);
+            const player2 = Player(this.playerTwoInput);
+            
+            this.playerOneName = player1.getName();
+            this.playerTwoName = player2.getName();
+            //console.log();
+            //console.log(player2.getName());
+        })
+
+
+    }
+
     const selectChoice = () => { // Alternates between X and Y depending on the count/round
+
+        const content = document.createElement('div');
+        content.setAttribute('id', 'playerUpdate');
+
+        
 
         if (this.count % 2 == 0 || this.count == 0) {
             this.playerSelection = 'X'
+            content.textContent = playerOneName + "'s" + " turn!";
+            this.container.appendChild(content);
         } else {
             this.playerSelection = 'Y'
+            content.textContent = playerTwoName + "'s" + " turn!";
+            container.appendChild(content);
         };
 
     }
@@ -97,24 +142,35 @@ const gameController = (() => { // Logic for game process
         this.diaOne = this.result[0] + this.result[4] + this.result[8];
         this.diaTwo = this.result[2] + this.result[4] + this.result[6];
 
+        this.conditions = [];
 
+        this.conditions.push(this.rowOne == 'XXX');
+        this.conditions.push(this.rowOne == 'YYY');
+        this.conditions.push(this.rowTwo == 'XXX');
+        this.conditions.push(this.rowTwo == 'YYY');
+        this.conditions.push(this.rowThree == 'XXX');
+        this.conditions.push(this.rowThree == 'YYY');
+        this.conditions.push(this.colOne == 'XXX');
+        this.conditions.push(this.colOne == 'YYY');
+        this.conditions.push(this.colTwo == 'XXX');
+        this.conditions.push(this.colTwo == 'YYY');
+        this.conditions.push(this.colThree == 'XXX');
+        this.conditions.push(this.colThree == 'YYY');
+        this.conditions.push(this.diaOne == 'XXX');
+        this.conditions.push(this.diaOne == 'YYY');
+        this.conditions.push(this.diaTwo == 'XXX');
+        this.conditions.push(this.diaTwo == 'YYY');
+            
+            for(i=0; i < this.conditions.length; i++){
+                if(this.conditions[i]){
+                    setTimeout(function () {
+                        alert('We have a winner: ' + this.playerSelection);
+                    }, 0)
+        
+                    this.gameStatus = 'Winner'
+                }
+            }
 
-        if (this.rowOne == 'XXX' || this.rowOne == 'YYY' ||
-            this.rowTwo == 'XXX' || this.rowTwo == 'YYY' ||
-            this.rowThree == 'XXX' || this.rowThree == 'YYY' ||
-            this.colOne == 'XXX' || this.colOne == 'YYY' ||
-            this.colTwo == 'XXX' || this.colTwo == 'YYY' ||
-            this.colThree == 'XXX' || this.colThree == 'YYY' ||
-            this.diaOne == 'XXX' || this.diaOne == 'YYY' ||
-            this.diaTwo == 'XXX' || this.diaTwo == 'YYY') {
-
-            setTimeout(function () {
-                alert('We have a winner');
-            }, 0)
-
-            this.gameStatus = 'Winner'
-
-        }
 
         if(this.result.indexOf('') == -1 && this.gameStatus != 'Winner'){
 
@@ -129,9 +185,10 @@ const gameController = (() => { // Logic for game process
     }
 
     const resetGame = () => {
-        this.gameStatus = 'In Progress'
+        
 
         this.btn.addEventListener('click', () => {
+            this.gameStatus = 'In Progress'
             this.boardItems.forEach((item) => {
                 item.textContent = '';
                 this.count = 0;
@@ -139,17 +196,23 @@ const gameController = (() => { // Logic for game process
         });
         
     }
-    
-    console.log(this.count);
 
+    
+
+    
+    
     return { init };
 
 })();
 
+
+
+
+
 gameController.init();
 
-const Player = (name) => {
-    const getName = () => name;
-
-    return { getName }
-};
+console.log()
+// Has to be vs AI or Player first
+// If against AI then they are automatically X and AI is O
+// If they select PvP then they can input their names and click start game
+// Let's start with PvP first, Players can input their names for X and O, then hit start game to begin

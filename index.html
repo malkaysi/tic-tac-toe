@@ -8,16 +8,21 @@
 </head>
 
 <body>
-    <div class="board-container" id="board-container">
+    <div id="container">
+        <label for='playerOne'>Player One: </label>
+        <input type="text" id='playerOne' name='playerOne'><br><br>
+        <label for='playerTwo'>Player Two: </label>
+        <input type="text" id='playerTwo' name='playerTwo'><br><br>
+        <button id='playerbtn' class="button">Submit</button>
+        <br><br>
+        
+        <div class="board-container" id="board-container"></div>
+
+        <button class="button" id='btn'>Reset Game</button>
 
     </div>
-    
-    <!-- <div class="selection-container" id="selection-container">
-
-    </div> -->
-
-    <button id='btn'>Reset Game</button>
 
     <script src="script.js"></script>
 </body>
+
 </html>
