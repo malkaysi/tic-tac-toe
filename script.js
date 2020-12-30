@@ -26,10 +26,21 @@ const gameBoard = (() => { // Creates game grid
 
 gameBoard.createBoard();
 
+const Player = (name) => {
+
+    const getName = () => name;
+    // const playerName = name;
+    // const playerSelection = selection;
+
+    return {getName};
+};
+
 
 const gameController = (() => { // Logic for game process
 
     this.count = 0;
+    this.playerOneName = '';
+    this.playerTwoname = '';
 
     const init = () => {
         cacheDom();
@@ -70,18 +81,42 @@ const gameController = (() => { // Logic for game process
 
     };
 
+    const createPlayers = () => {
+        
+
+        this.playerBtn.addEventListener('click', () => {
+
+            
+
+            this.playerOneInput = document.querySelector('#playerOne').value;
+            this.playerTwoInput = document.querySelector('#playerTwo').value;
+
+            const player1 = Player(this.playerOneInput);
+            const player2 = Player(this.playerTwoInput);
+            
+            this.playerOneName = player1.getName();
+            this.playerTwoName = player2.getName();
+            //console.log();
+            //console.log(player2.getName());
+        })
+
+
+    }
+
     const selectChoice = () => { // Alternates between X and Y depending on the count/round
 
         const content = document.createElement('div');
         content.setAttribute('id', 'playerUpdate');
 
+        
+
         if (this.count % 2 == 0 || this.count == 0) {
             this.playerSelection = 'X'
-            content.textContent = createPlayers().player1.name + "'s" + " turn!";
+            content.textContent = playerOneName + "'s" + " turn!";
             this.container.appendChild(content);
         } else {
             this.playerSelection = 'Y'
-            content.textContent = player2.playerName + "'s" + " turn!";
+            content.textContent = playerTwoName + "'s" + " turn!";
             container.appendChild(content);
         };
 
@@ -162,21 +197,7 @@ const gameController = (() => { // Logic for game process
         
     }
 
-    const createPlayers = () => {
-        const player1 = Player('');
-        const player2 = Player('');
-
-        this.playerBtn.addEventListener('click', () => {
-
-            this.playerOneInput = document.querySelector('#playerOne').value;
-            this.playerTwoInput = document.querySelector('#playerTwo').value;
-            player1.name = this.playerOneInput;
-            player2.name = this.playerTwoInput;
-            console.log(player1.name)
-
-        })
-
-    }
+    
 
     
     
@@ -186,13 +207,7 @@ const gameController = (() => { // Logic for game process
 
 
 
-const Player = (name) => {
 
-    // const playerName = name;
-    // const playerSelection = selection;
-
-    return {name}
-};
 
 gameController.init();
 
