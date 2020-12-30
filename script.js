@@ -77,7 +77,7 @@ const gameController = (() => { // Logic for game process
 
         if (this.count % 2 == 0 || this.count == 0) {
             this.playerSelection = 'X'
-            content.textContent = createPlayers().player1.playerName + "'s" + " turn!";
+            content.textContent = createPlayers().player1.name + "'s" + " turn!";
             this.container.appendChild(content);
         } else {
             this.playerSelection = 'Y'
@@ -170,13 +170,15 @@ const gameController = (() => { // Logic for game process
 
             this.playerOneInput = document.querySelector('#playerOne').value;
             this.playerTwoInput = document.querySelector('#playerTwo').value;
-            player1.playerName = this.playerOneInput;
-            player2.playerName = this.playerTwoInput;
+            player1.name = this.playerOneInput;
+            player2.name = this.playerTwoInput;
+            console.log(player1.name)
 
         })
 
-        return {player1, player2}
     }
+
+    
     
     return { init };
 
@@ -186,10 +188,10 @@ const gameController = (() => { // Logic for game process
 
 const Player = (name) => {
 
-    const playerName = name;
+    // const playerName = name;
     // const playerSelection = selection;
 
-    return {playerName}
+    return {name}
 };
 
 gameController.init();
