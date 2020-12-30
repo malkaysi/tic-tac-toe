@@ -10,7 +10,7 @@ const gameBoard = (() => { // Creates game grid
         for (i = 0; i <= 8; i++) { // Creates the grid items and board array that includes each item
 
             boardArray.push('div' + i);
-    
+
             boardArray['div' + i] = document.createElement('div');
             boardArray['div' + i].setAttribute('id', 'board-item' + i);
             boardArray['div' + i].classList.add('board-item')
@@ -28,25 +28,19 @@ gameBoard.createBoard();
 
 const Player = (name) => {
 
-    const getName = () => name;
-    // const playerName = name;
-    // const playerSelection = selection;
-
-    return {getName};
+    return { name };
 };
 
 
 const gameController = (() => { // Logic for game process
 
     this.count = 0;
-    this.playerOneName = '';
-    this.playerTwoname = '';
+    const player1 = Player('');
+    const player2 = Player('');
 
     const init = () => {
         cacheDom();
         bindEvents();
-        resetGame();
-        createPlayers();
     }
 
     const cacheDom = () => { // Grabs the board-item class (grid items)
@@ -59,16 +53,13 @@ const gameController = (() => { // Logic for game process
 
     const bindEvents = () => { // Creates the listener to add the player selection
 
-        this.boardItems.forEach((item) => {
+        this.boardItems.forEach((item) => { // Controls gameplay
             item.addEventListener('click', (e) => {
-                
-                
 
-                
-                if(e.target.textContent && this.gameStatus == 'In Progress') {
+                if (e.target.textContent && this.gameStatus == 'In Progress') {
                     alert('Something is already here')
                     this.count++;
-                } else if(this.gameStatus == 'In Progress') {
+                } else if (this.gameStatus == 'In Progress') {
                     selectChoice();
                     e.target.textContent = this.playerSelection; // This adds text content to the clicked on item
                     determineWinner();
@@ -79,44 +70,38 @@ const gameController = (() => { // Logic for game process
             })
         })
 
-    };
+        this.playerBtn.addEventListener('click', () => { // Sets players names
 
-    const createPlayers = () => {
-        
+            player1.name = document.querySelector('#playerOne').value;
+            player2.name = document.querySelector('#playerTwo').value;
 
-        this.playerBtn.addEventListener('click', () => {
-
-            
-
-            this.playerOneInput = document.querySelector('#playerOne').value;
-            this.playerTwoInput = document.querySelector('#playerTwo').value;
-
-            const player1 = Player(this.playerOneInput);
-            const player2 = Player(this.playerTwoInput);
-            
-            this.playerOneName = player1.getName();
-            this.playerTwoName = player2.getName();
-            //console.log();
-            //console.log(player2.getName());
         })
 
+        this.btn.addEventListener('click', () => { // Reset game button
+            this.gameStatus = 'In Progress'
+            this.boardItems.forEach((item) => {
+                item.textContent = '';
+                this.count = 0;
+            });
+        });
 
-    }
+    };
+
 
     const selectChoice = () => { // Alternates between X and Y depending on the count/round
 
         const content = document.createElement('div');
         content.setAttribute('id', 'playerUpdate');
 
-        
+
 
         if (this.count % 2 == 0 || this.count == 0) {
             this.playerSelection = 'X'
-            content.textContent = playerOneName + "'s" + " turn!";
+            content.textContent = player1.name + "'s" + " turn!";
             this.container.appendChild(content);
         } else {
             this.playerSelection = 'Y'
-            content.textContent = playerTwoName + "'s" + " turn!";
+            content.textContent = player2.name + "'s" + " turn!";
             container.appendChild(content);
         };
 
@@ -160,19 +145,19 @@ const gameController = (() => { // Logic for game process
         this.conditions.push(this.diaOne == 'YYY');
         this.conditions.push(this.diaTwo == 'XXX');
         this.conditions.push(this.diaTwo == 'YYY');
-            
-            for(i=0; i < this.conditions.length; i++){
-                if(this.conditions[i]){
-                    setTimeout(function () {
-                        alert('We have a winner: ' + this.playerSelection);
-                    }, 0)
-        
-                    this.gameStatus = 'Winner'
-                }
+
+        for (i = 0; i < this.conditions.length; i++) {
+            if (this.conditions[i]) {
+                setTimeout(function () {
+                    alert('We have a winner: ' + this.playerSelection);
+                }, 0)
+
+                this.gameStatus = 'Winner'
             }
+        }
 
 
-        if(this.result.indexOf('') == -1 && this.gameStatus != 'Winner'){
+        if (this.result.indexOf('') == -1 && this.gameStatus != 'Winner') {
 
             setTimeout(function () {
                 alert('Tie Game');
@@ -184,35 +169,8 @@ const gameController = (() => { // Logic for game process
 
     }
 
-    const resetGame = () => {
-        
-
-        this.btn.addEventListener('click', () => {
-            this.gameStatus = 'In Progress'
-            this.boardItems.forEach((item) => {
-                item.textContent = '';
-                this.count = 0;
-            });
-        });
-        
-    }
-
-    
-
-    
-    
     return { init };
 
 })();
 
-
-
-
-
 gameController.init();
-
-console.log()
-// Has to be vs AI or Player first
-// If against AI then they are automatically X and AI is O
-// If they select PvP then they can input their names and click start game
-// Let's start with PvP first, Players can input their names for X and O, then hit start game to begin
