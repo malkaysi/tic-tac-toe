@@ -1,3 +1,13 @@
+@font-face{
+    font-family: kongFont;
+    src: local(kongtext);
+    src: url(kongtext.ttf);
+}
+
+.container{
+
+}
+
 .board-container{
     display: inline-grid;
     grid-template-columns: auto auto auto;
@@ -26,4 +36,13 @@
     border: 1px solid rgba(0, 0, 0, 0.8);
     padding: 20px;
     font-size: 30px;
+}
+
+.input{
+    font-family: kongFont;
+}
+
+.label{
+    font-family: kongFont;
+    font-size: large;
 }
