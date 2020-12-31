@@ -5,21 +5,23 @@
     <title>Page Title</title>
     <meta charset="UTF-8" />
     <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="./node_modules/nes.css/css/nes.min.css">
+    <link rel="stylesheet" href="nes.css" />
 </head>
 
 <body>
     <div class='container' id="container">
-        <label class="label" for='playerOne'>Player One: </label>
-        <input type="text" id='playerOne' class='input' name='playerOne'><br><br>
-        <label class="label" for='playerTwo'>Player Two: </label>
-        <input type="text" id='playerTwo' class='input' name='playerTwo'><br><br>
-        <button id='playerbtn' class="nes-btn is-primary">Submit</button>
-        <br><br>
-        
-        <div class="board-container" id="board-container"></div>
+        <div class='player-container'>
+            <label class="label" for='playerOne'>Player One (X): </label>
+            <input type="text" id='playerOne' class='input' name='playerOne'><br><br>
+            <label class="label" for='playerTwo'>Player Two (Y): </label>
+            <input type="text" id='playerTwo' class='input' name='playerTwo'><br><br>
+            <button id='playerbtn' class="nes-btn is-primary">Submit</button>
+            <br><br>
+        </div>
 
-        <button class="button" id='btn'>Reset Game</button>
+        <div class="board-container" id="board-container"></div><br>
+
+        <button class="nes-btn is-success" id='btn'>Reset Game</button>
 
     </div>
 
