@@ -1,8 +1,28 @@
+@font-face{
+    font-family: kongFont;
+    src: local(kongtext);
+    src: url(kongtext.ttf);
+}
+
+.container{
+    position: relative;
+    text-align: center;
+}
+
+.player-container{
+    margin-top: 100px;
+    left: 50%;
+}
+
 .board-container{
     display: inline-grid;
     grid-template-columns: auto auto auto;
     background-color: rgb(134, 156, 177);
     padding: 5px;
+    position: relative;
+    text-align: center;
+    margin-top: 50px;
+    
 }
 
 .selection-container{
@@ -16,9 +36,10 @@
     background-color: rgb(137, 211, 230);
     border: 1px solid rgba(0, 0, 0, 0.8);
     padding: 20px;
-    font-size: 30px;
-    height: 30px;
-    width: 30px;
+    font-size: 50px;
+    height: 100px;
+    width: 100px;
+    font-family: kongFont;
 }
 
 .selection-item{
@@ -26,4 +47,23 @@
     border: 1px solid rgba(0, 0, 0, 0.8);
     padding: 20px;
     font-size: 30px;
+    font-family: kongFont;
+}
+
+.input{
+    font-family: kongFont;
+}
+
+.label{
+    font-family: kongFont;
+    font-size: large;
+}
+
+
+.player-update{
+    font-family: kongFont;
+    font-size: large;
+    position: relative;
+    text-align: center;
+    margin-top: 100px;
 }
