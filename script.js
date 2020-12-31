@@ -49,6 +49,8 @@ const gameController = (() => { // Logic for game process
         this.gameStatus = 'In Progress'; // Tracks life cycle of the game
         this.playerBtn = document.querySelector('#playerbtn');
         this.container = document.querySelector('#container');
+        this.content = document.createElement('div');
+        this.content.setAttribute('id', 'playerUpdate');
     };
 
     const bindEvents = () => { // Creates the listener to add the player selection
@@ -75,6 +77,8 @@ const gameController = (() => { // Logic for game process
             player1.name = document.querySelector('#playerOne').value;
             player2.name = document.querySelector('#playerTwo').value;
 
+            this.content.textContent = player1.name + "'s" + " turn!";;
+            this.container.appendChild(this.content);
         })
 
         this.btn.addEventListener('click', () => { // Reset game button
@@ -83,26 +87,21 @@ const gameController = (() => { // Logic for game process
                 item.textContent = '';
                 this.count = 0;
             });
+            this.content.textContent = '';
         });
 
     };
 
 
     const selectChoice = () => { // Alternates between X and Y depending on the count/round
-
-        const content = document.createElement('div');
-        content.setAttribute('id', 'playerUpdate');
-
-
+        
 
         if (this.count % 2 == 0 || this.count == 0) {
             this.playerSelection = 'X'
-            content.textContent = player1.name + "'s" + " turn!";
-            this.container.appendChild(content);
+            this.content.textContent = player2.name + "'s" + " turn!";
         } else {
             this.playerSelection = 'Y'
-            content.textContent = player2.name + "'s" + " turn!";
-            container.appendChild(content);
+            this.content.textContent = player1.name + "'s" + " turn!";
         };
 
     }
